@@ -1,0 +1,50 @@
+//part 1 - no need to translate this line
+
+Diese App kann bei der kardiopulmonalen Reanimation helfen, indem es die Geschwindigkeit der Herzmassage und die Anzahl der nötigen Beatmungen anzeigt.
+
+Hauptfunktionen:
+- 1-Klick Start Assistent
+- Herzschläge zur Anzeige der optimalen Herzmassagefrequenz
+- zusätzlicher Signalton zur Anzeige des Herzmassage-Zeitpunkts
+- Herzmassagen-Zähler startet neu, um Beatmungszeitpunkte anzuzeigen
+- Zeitanzeige seit dem Beginn der Maßnahmen
+- Schaltfläche zum Notruf eines Krankenwagens. Bei Betätigung wird der Anruf mit aktivierter Lautsprechfunktion getätigt.
+
+Konfiguration:
+- Pulsfrequenz und Herzmassagefrequenz können für Kinder und Erwachsene angepasst werden
+- Standardkonfiguration ist für Erwachsene eingestellt: 100 Pulsschläge pro Minute mit einer Beatmung alle 30 Pulsschläge.
+- Notrufnummer: 112 (je nach Land anpassbar)
+
+Bitte bewerten oder kommentieren Sie diese App.
+
+//part 2 - no need to translate this line
+
+- mit zusätzlichem Benachrichtigungston, um den Herzmassagezeitpunkt anzuzeigen
+- verbesserte Grafik
+- verbesserte Beschreibung der Einstellungsmöglichkeiten
+- allgemeine Geschäftsbedingungen wurden hinzugefügt
+
+//part 3 - no need to translate this line
+
+1.Herzmassagen pro Minute
+2.Anzahl der Herzmassagen zwischen Beatmungen
+3.Beatmungsfrequenz
+4.Einstellungen
+5.Notfallrufnummer
+6.Lokale Notfallrufnummer, wenn "Notruf" gedrückt wird: (911,112, 155, ...)
+7.Einen Krankenwagen rufen?
+8.Ja, anrufen!
+9.Anrufen von %1$d gescheitert.
+10. Abbrechen
+11. Allgemeine Geschäftsbedingungen
+12. Zustimmen
+13. Ablehnen und beenden.
+
+//part 4 - no need to translate this line
+
+Die Informationen aus Pulsar CPR dienen nur der Aufklärung und ersetzen keine professionelle medizinische Hilfe.
+
+
+Nutzer von Pulsar CPR stimmen zu, dass die Autoren von Pulsar CPR nicht für Umstände, die aus falscher Nutzung, falscher Interpretation oder Anwendung von Pulsar CPR entstehen, zur Verantwortung gezogen werden können. 
+
+Die in Pulsar CPR enthaltenen Informationen gewährleisten keinen Anspruch auf Garantie, Wahrheit, Nützlichkeit oder Vollständigkeit.

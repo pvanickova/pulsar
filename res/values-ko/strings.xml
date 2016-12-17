@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Pulsar CPR</string>
+    <string name="pulseFrequencyTitle">분당 가슴 압박</string>
+    <string name="pulseCounterMax">구조 호흡 중간의 가슴 압박 횟수</string>
+    <string name="pulseCounterMaxTitle">구조 호흡 빈도수</string>
+    <string name="preferences">옵션</string>
+    <string name="ambulancePhoneNumberTitle">앰뷸런스 전화번호</string>
+    <string name="ambulancePhoneNumber">CPR 전화 버튼(911, 112, 155, ...)이 눌러지면 통화가 되는 지역별 긴급통화번호</string>
+    <string name="callAmbulanceQuestion">앰뷸런스를 부를까요?</string>
+    <string name="callAmbulanceYes">네 불러주세요</string>
+    <string name="callAmbulanceFailed">.%1$d 에 통화 실패</string>
+	<string name="cancel">취소</string>
+	<string name="licenseTermsAndConditions">이용약관</string>
+	<string name="licenseAgree">동의</string>
+	<string name="licenseDisagree">동의하지 않고 종료</string>
+</resources>

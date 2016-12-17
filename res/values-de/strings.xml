@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Pulsar CPR</string>
+    <string name="pulseFrequencyTitle">Herzmassagen pro Minute</string>
+    <string name="pulseCounterMax">Anzahl der Herzmassagen zwischen Beatmungen</string>
+    <string name="pulseCounterMaxTitle">Beatmungsfrequenz</string>
+    <string name="preferences">Einstellungen</string>
+    <string name="ambulancePhoneNumberTitle">Notfallrufnummer</string>
+    <string name="ambulancePhoneNumber">Lokale Notfallrufnummer, wenn "Notruf" gedrückt wird: (911,112, 155, ...)</string>
+    <string name="callAmbulanceQuestion">Einen Krankenwagen rufen?</string>
+    <string name="callAmbulanceYes">Ja, anrufen!</string>
+    <string name="callAmbulanceFailed">Anrufen von %1$d gescheitert</string>
+	<string name="cancel">Abbrechen</string>
+	<string name="licenseTermsAndConditions">Allgemeine Geschäftsbedingungen</string>
+	<string name="licenseAgree">Zustimmen</string>
+	<string name="licenseDisagree">Ablehnen und beenden</string>
+</resources>

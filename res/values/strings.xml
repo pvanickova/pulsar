@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Pulsar CPR</string>
+    <string name="pulseFrequencyTitle">Chest compressions per minute</string>
+    <string name="pulseCounterMax">Number of chest compressions between rescue breaths</string>
+    <string name="pulseCounterMaxTitle">Rescue breaths frequency</string>
+    <string name="preferences">Preferences</string>
+    <string name="ambulancePhoneNumberTitle">Ambulance phone number</string>
+    <string name="ambulancePhoneNumber">Local emergency phone number used when the Pulsar CPR call button is pressed (911,112, 155, ...)</string>
+    <string name="callAmbulanceQuestion">Call an ambulance?</string>
+    <string name="callAmbulanceYes">Yes, call!</string>
+    <string name="callAmbulanceFailed">Call to %1$d failed</string>
+    <string name="cancel">Cancel</string>
+    <string name="licenseTermsAndConditions">Terms and conditions</string>
+    <string name="licenseAgree">Agree</string>
+    <string name="licenseDisagree">Disagree and Quit</string>
+    <string name="restart">Restart</string>
+    <string name="help">Help</string>
+    <string name="title_activity_help">HelpActivity</string>
+    <string name="action_settings">Settings</string>
+    <string name="help_close">Close help</string>
+    <string name="help_page_0">
+  1. \"Heart image\" blinking with accompanied beeping tells you the optimal frequency of chest compressions.\n\n
+  2. \"Heart counter\" restart is a signal for the rescue breaths.\n\n
+  3. \"Call ambulance button\" opens a dialogue from which you can start a call to the emergency services.
+    </string>
+        <string name="help_page_1">
+  4. \"Reset button\" clears the \"Heart counter\" and the time indicators.\n\n
+  5. \"Start time indicator\" shows when the CPR started. It can be cleared by the \"Reset button\".\n\n
+  6. \"Duration indicator\" shows for how long the CPR was performed. It can be cleared by the \"Reset button\".
+    </string>
+        <string name="help_page_2">
+  7. Setting \"Chest compressions per minute\" determines the frequency of the \"Heart counter\" changes and beeps.\n\n
+  8. Setting \"Rescue breath frequency\" determines the maximum value of the \"Heart counter\".\n\n
+  9. Setting \"Ambulance phone number\" determines the default emergency number that is used when you use the \"Call ambulance button.\"
+    </string>
+
+</resources>

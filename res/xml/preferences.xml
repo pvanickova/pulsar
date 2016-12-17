@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <EditTextPreference
+        android:defaultValue="100"
+        android:dialogTitle="@string/pulseFrequencyTitle"
+        android:inputType="number"
+        android:key="editText_pulseFrequency"
+        android:summary="@string/pulseFrequencyTitle"
+        android:title="@string/pulseFrequencyTitle" />
+
+    <EditTextPreference
+        android:defaultValue="30"
+        android:dialogTitle="@string/pulseCounterMaxTitle"
+        android:inputType="number"
+        android:key="editText_pulseCounterMax"
+        android:summary="@string/pulseCounterMax"
+        android:title="@string/pulseCounterMaxTitle" />
+
+    <EditTextPreference
+        android:defaultValue="112"
+        android:inputType="phone"
+        android:dialogTitle="@string/ambulancePhoneNumberTitle"
+        android:key="editText_ambulancePhoneNumber"
+        android:summary="@string/ambulancePhoneNumber"
+        android:title="@string/ambulancePhoneNumberTitle" />
+
+</PreferenceScreen>

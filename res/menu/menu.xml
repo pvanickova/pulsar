@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" 
+    xmlns:pulsar="http://schemas.android.com/apk/res-auto" >
+    <item android:id="@+id/action_restart" android:icon="@drawable/ic_restart" android:title="@string/restart" pulsar:showAsAction="ifRoom"></item>
+    <item android:id="@xml/preferences" android:title="@string/preferences" pulsar:showAsAction="never"></item>
+    <item android:id="@+id/action_info" android:title="@string/help" pulsar:showAsAction="never"></item>
+</menu>

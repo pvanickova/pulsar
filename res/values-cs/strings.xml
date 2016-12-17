@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Pulsar CPR</string>
+    <string name="pulseFrequencyTitle">Počet stlačení hrudníku za minutu</string>
+    <string name="pulseCounterMax">Počet stlačení hrudníku mezi umělým dýcháním</string>
+    <string name="pulseCounterMaxTitle">Frekvence umělého dýchání</string>
+    <string name="preferences">Nastavení</string>
+    <string name="ambulancePhoneNumberTitle">Telefonní číslo pro přivolání záchranné služby</string>
+    <string name="ambulancePhoneNumber">Telefonní číslo pro přivolání záchranné služby, které se použije při stlační tlačítka hovoru v aplikaci Pulsar CPR (např. 112, 155, 911 ...)</string>
+    <string name="callAmbulanceQuestion">Přivolat záchrannou službu?</string>
+    <string name="callAmbulanceYes">Ano, zavolat!</string>	
+    <string name="callAmbulanceFailed">"Telefonní hovor na %1$d selhal."</string>
+	<string name="cancel">Zrušit</string>
+	<string name="licenseTermsAndConditions">Všeobecné smluvní podmínky</string>
+	<string name="licenseAgree">Souhlasím</string>
+	<string name="licenseDisagree">Nesouhlasím</string>
+	<string name="restart">Restart</string>
+    <string name="help">Nápověda</string>
+    <string name="title_activity_help">Nápověda</string>
+    <string name="action_settings">Nastavení</string>
+    <string name="help_close">Zavři nápovědu</string>    
+    <string name="help_page_0">
+ 1. Blikání \"Symbolu srdce\" a doprovodný zvukový signál napovídají optimální frekvenci pro stlačování hrudníku.\n\n
+ 2. Restart \"Počítadla na popředí symbolu srdce\" je znamením pro provedení umělého dýchání.\n\n
+ 3. Po stlačení \"Tlačítka pro přivolání pomoci\" se otevře nové okno, ze kterého můžete zahájit hovor na linku tísňového volání.
+   </string>
+        <string name="help_page_1">
+  4. Stlačením \"Reset tlačítka\" se vynuluje \"Počítadlo na popředí symbolu srdce\" a časové indikátory počátku a délky trvání první pomoci.\n\n
+  5. \"Indikátor začátku\" zobrazuje čas, kdy byla zahájena první pomoc. Tento indikátor může být přenastaven na aktuální čas stlačením \"Reset tlačítka\".\n\n
+  6. \"Indikátor trvání\" zobrazuje, jak dlouho byla první pomoc poskytována. Tento indikátor může být vynulován a znovu odstartován stlačením \"Reset tlačítka\".
+    </string>
+        <string name="help_page_2">
+  7. Konfigurace \"Počet stlačení hrudníku za minutu\" určuje počet blikání \"Symbolu srdce\" a doprovodných zvuků za minutu.\n\n
+  8. Konfigurace \"Frekvence umělého dýchání\" určuje maximální hodnotu \"Počítadla na popředí symbolu srdce\", než dojde k jeho restartování.\n\n
+  9. Konfigurace \"Telefonní číslo pro přivolání záchranné služby\" určuje přednastavené telefonní číslo na linku tísňového volání, které je zobrazeno po stlačení \"Tlačítka pro přivolání pomoci\".
+    </string>
+    
+	
+</resources>

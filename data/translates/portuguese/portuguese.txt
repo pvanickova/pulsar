@@ -1,0 +1,60 @@
+//part 1 - no need to translate this line
+
+
+Aplicativo que pode ajudar com o RCP, mostrando o ritmo da compressão cardíaca e respiração de emergência. 
+
+Principais características: 
+- Um clique para iniciar o assistente  
+- Os pulsos cardíacos demonstram a freqüência de compressão torácica recomendada 
+- Um sinal sonoro indica quando a compressão torácica deve ser realizada 
+- Contador de compressão torácica reinicia para sugerir a respiração de emergência 
+- Mostra o tempo decorrido desde o início da RCP 
+- Botão para chamar uma ambulância - após a confirmação, inicia uma chamada para a ambulância (no viva-voz)
+
+
+Configuração: 
+- Frequência de pulso e reinícios do contador de compressão torácica podem ser configurados para permitir a RCP para adultos / crianças 
+- A configuração padrão se aplica para adultos: 100 pulsos por minuto, respiração de emergência a cada 30 pulsos 
+- Número de telefone para a ambulância - 112 por padrão, mas pode ser facilmente alterado para o número específico do país, por exemplo 911 
+
+Por favor, comente e /ou avalie.
+
+
+
+//part 2 - no need to translate this line
+
+- Acrescentado sinal sonoro para indicar quando a compressão torácica deve ser efetuada
+- Gráficos atualizados 
+- Descrições esclarecidas das configurações de preferências  
+- Adicionados os termos e condições
+
+//part 3 - no need to translate this line
+
+
+1.Compressões torácicas por minuto 
+2.Número das compressões torácicas entre as respirações de resgate 
+3.Frequencia das respirações de resgate 
+4.Preferences 
+5.Número de telefone da ambulância
+6.Número de telefone local da emergência, usado quando o botão de chamada Pulsar RCP é pressionado (911,112, 155, ...) 
+7.Chamar uma ambulância? 
+8.Sim, chamar! 
+9.Chamada para %1$d falhou 
+10. Cancelar 
+11. Termos e Condições 
+12. Concordo
+13. Discordo e Fechar
+
+Obs: * - The verbs 'Concordar' e 'Discordar' are written in the infinitive tense. In case of you want it to be in the 1st person singular, i.e 'I agree/disagree', please change it for 'Concordo' and 'Discordo'. 
+
+
+
+//part 4 - no need to translate this line
+
+
+As informações fornecidas pelo aplicativo Pulsar RCP são apenas para fins informativos e não se destina a ser um substituto para cuidados de saúde profissionais. 
+
+Os usuários do aplicativo Pulsar RCP concordam que os autores do aplicativo Pulsar RCP não se responsabilizam por quaisquer circunstâncias decorrentes do uso, mau uso, interpretação ou aplicação de qualquer informação fornecida pelo aplicativo Pulsar RCP. 
+
+A informação do aplicativo Pulsar RCP é apresentada sem qualquer garantia quanto à sua confiabilidade, precisão, utilidade ou integridade.
+

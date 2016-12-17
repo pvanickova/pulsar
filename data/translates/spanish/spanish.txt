@@ -1,0 +1,55 @@
+Parte  1 
+
+Uso del asistente de reanimación cardiopulmonar (RCP o siglas en inglés CPR), mostrando el ritmo de comprensiones cardíacas y respiraciones asistidas. 
+
+Características Principales:
+- pulse una vez para poner en marcha el aparato
+- los latidos cardíacos muestran la frecuencia de compresión pectoral recomendada 
+- un bip indicará cuándo se deben comenzar las compresiones en el pecho
+- el indicador de compresiones pectorales se reiniciará para sugerir la asistencia respiratoria 
+- muestra el tiempo transcurrido desde el comienzo de la reanimación cardiopulmonar
+- botón de llamada a ambulancia- tras la confirmación inicia la llamada a los servicios de emergencia (en el altavoz del teléfono)
+
+Configuración:
+- el reinicio del indicador de frecuencia de latidos y compresiones pectorales se puede configurar para adaptar la reanimación cardiopulmonar a adultos/niños 
+- la configuración por defecto es la correspondiente a adultos: 100 latidos por minuto, respiración asistida cada 30 latidos
+- número de teléfono para emergencias (ambulancia) – se muestra 112 por defecto pero puede ser fácilmente adaptado al número de emergencias de un país en concreto, por ejemplo 911
+
+Por favor, deje su comentario y/o evaluación.
+
+
+Parte 2 
+
+- incluye un sonido bip para indicar cuándo se deben iniciar las compresiones pectorales
+- gráficos actualizados
+- descripciones aclaratorias de las preferencias de configuración
+- incluye términos y condiciones
+
+Parte 3 
+
+1. Compresiones pectorales por minuto
+2. Número de compresiones pectorales entre respiraciones asistidas
+3. Frecuencia de las respiraciones asistidas
+4. Preferencias
+5. Número de teléfono para ambulancias
+6. Número de teléfono de emergencia local que se activa cuando se presiona el botón de llamada de Pulsar CPR o respiración cardiopulmonar (911,112, 155, ...)
+7. ¿Llamar ambulancia?
+8. Sí, ¡llamar!
+9. Llamada al %1$d no ha sido posible
+10. Cancelar
+11. Términos y Condiciones
+12. Seguir
+13. No Seguir y Abandonar
+
+
+Parte 4 
+
+La información ofrecida por el dispositivo Pulsar CPR tiene solamente carácter informativo y no puede ser considerada como un sustitutivo de cuidados médicos profesionales. 
+
+
+Los usuarios del dispositivo Pulsar CPR acuerdan que los creadores del dispositivo Pulsar CPR no están sujetos a ningún tipo de responsabilidad bajo ninguna circunstancia debido al uso, uso indebido, mala interpretación o aplicación de las instrucciones ofrecidas por el dispositivo Pulsar CPR. 
+
+
+La información que acompaña al dispositivo Pulsar CPR es ofrecida sin ningún tipo de garantía relacionada a responsabilidades, precisión, utilidad o integridad. 
+
+

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res/cz.kcck.android"
+    android:id="@+id/RelativeLayout1"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:baselineAligned="true"
+    android:orientation="horizontal"
+    android:visibility="visible" 
+    android:layout_margin="15dp">
+
+    <FrameLayout
+        android:id="@+id/pulseLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true" >
+
+        <ImageView
+            android:id="@+id/imageViewPulse"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_gravity="center"
+            android:adjustViewBounds="true"
+            android:background="@null"
+            android:scaleType="centerInside"
+            android:src="@drawable/pulse"
+            android:visibility="invisible" />
+
+        <TextView
+            android:id="@+id/textViewCounter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:background="#00000000"
+            android:textSize="100sp" />
+
+    </FrameLayout>
+
+    
+    
+     <ImageView
+         android:id="@+id/imageViewStartIcon"
+         android:layout_width="30dp"
+         android:layout_height="30dp"
+         android:layout_alignParentTop="true"
+         android:layout_marginTop="4dp"
+         android:layout_alignParentRight="true"
+         android:layout_alignParentEnd="true"
+         android:src="@drawable/ic_start" />
+     
+     <TextView
+        android:id="@+id/textViewTimeStart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toLeftOf="@id/imageViewStartIcon"
+        android:layout_alignParentTop="true"
+        android:layout_marginRight="5dp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textSize="30sp" />
+
+      <ImageView
+         android:id="@+id/imageViewTimeIcon"
+         android:layout_width="30dp"
+         android:layout_height="30dp"
+         android:layout_alignParentRight="true"
+         android:layout_alignParentEnd="true"
+         android:layout_below="@id/textViewTimeStart"
+         android:layout_marginTop="5dp"
+         android:src="@drawable/ic_stop_watch" />
+      
+    <TextView
+        android:id="@+id/textViewTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textViewTimeStart"
+        android:layout_alignRight="@id/textViewTimeStart"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textSize="30sp" />
+    
+    
+    <ImageButton
+        android:id="@+id/ImageButtonCallAmbulance"
+        android:layout_width="140dp"
+        android:layout_height="95dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:adjustViewBounds="true"
+        android:contentDescription="@string/callAmbulanceQuestion"
+        android:scaleType="fitStart"
+        android:background="@drawable/ic_call" />
+
+</RelativeLayout>

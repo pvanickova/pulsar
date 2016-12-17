@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Pulsar CPR</string>
+    <string name="pulseFrequencyTitle">Compresiones pectorales por minuto</string>
+    <string name="pulseCounterMax">Número de compresiones pectorales entre respiraciones asistidas</string>
+    <string name="pulseCounterMaxTitle">Frecuencia de las respiraciones asistidas</string>
+    <string name="preferences">Preferencias</string>
+    <string name="ambulancePhoneNumberTitle">Número de teléfono para ambulancias</string>
+    <string name="ambulancePhoneNumber">Número de teléfono de emergencia local que se activa cuando se presiona el botón de llamada de Pulsar CPR o respiración cardiopulmonar (911,112, 155, ...)</string>
+    <string name="callAmbulanceQuestion">¿Llamar ambulancia?</string>
+    <string name="callAmbulanceYes">Sí, ¡llamar!</string>
+    <string name="callAmbulanceFailed">Llamada al %1$d no ha sido posible</string>
+	<string name="cancel">Cancelar</string>
+	<string name="licenseTermsAndConditions">Términos y Condiciones</string>
+	<string name="licenseAgree">Seguir</string>
+	<string name="licenseDisagree">No Seguir y Abandonar</string>
+	 <string name="restart">Reinicio</string>
+    <string name="help">Ayuda</string>
+    <string name="action_settings">Configurar</string>
+    <string name="help_close">Finalizar ayuda</string>
+    <string name="help_page_0">
+ 1. \"Imagen del Corazón\" parpadeo acompañado de un pitido que nos indica la frecuencia óptima de las compresiones pectorales.\n\n
+ 2. \"Contador de latidos\" reinicio es un indicativo para la respiración boca a boca.\n\n
+ 3. \"Botón de Llamar Ambulancia\" abre una ventana de diálogo en la cual podrá comenzar una llamada a los servicios de emergencia. 
+    </string>
+        <string name="help_page_1">
+ 4. \"Botón de Refrescar\" reinicia el \"Contador de latidos\" y los indicadores de tiempo.\n\n
+ 5. \"Iniciar el indicador de tiempo\" muestra cuando comienzan las maniobras de CPR (RCP- Reanimación Cardiopulmonar). Se puede reiniciar con el \"Botón de Reiniciar\".\n\n
+ 6. \"Indicador de duración\" muestra durante cuánto tiempo ha estado haciendo las maniobras de CPR. Puede refrescarse presionando el \"Botón Re-configurar\". 
+    </string>
+        <string name="help_page_2">
+ 7. Configurar \"Compresiones pectorales por minuto\" determina la frecuencia de los cambios y sonidos del \"Contador de Latidos\".\n\n
+ 8. Configurar \"Frecuencia de la Respiración Asistida\" determina el valor máximo del \"Contador de Latidos\".\n\n
+ 9. Configurar \"Número de Teléfono de la Ambulancia\" determina el número de emergencia por defecto que se utiliza al presionar el \"Botón de llamar ambulancia.\"
+    </string>
+</resources>

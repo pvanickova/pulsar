@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- the theme applied to the application or activity -->
+    <style name="CustomActionBarTheme" parent="@style/Theme.AppCompat">
+        <item name="android:windowBackground">@color/ocean_blue</item>
+        <item name="android:actionBarStyle">@style/PulsarActionBar</item>
+        <item name="android:editTextStyle">@style/PulsarEditText</item>
+        <item name="android:alertDialogTheme">@style/PulsarDialog</item>
+
+        <!-- Support library compatibility -->
+        <item name="actionBarStyle">@style/PulsarActionBar</item>
+        <item name="android:itemBackground">@color/ocean_blue</item>
+    </style>
+
+    <!-- ActionBar styles -->
+    <style name="PulsarActionBar" parent="@style/Widget.AppCompat.Light.ActionBar.Solid.Inverse">
+        <item name="android:background">@color/ocean_blue_dark</item>
+
+        <!-- Support library compatibility -->
+        <item name="background">@color/ocean_blue_dark</item>
+    </style>
+
+    <style name="PulsarEditText" parent="android:style/Widget.EditText">
+        <item name="android:background">@color/ocean_blue_dark</item>
+        <item name="android:editTextBackground">@color/ocean_blue_dark</item>
+    </style>
+    
+    <style name="PulsarDialog" parent="@style/Theme.AppCompat.Light.Dialog.Alert">
+    <item name="android:background">@color/ocean_blue</item>
+    <item name="android:textColorPrimary">#FFFFFF</item>
+    <item name="colorAccent">@color/button_background</item>
+
+</style>
+
+</resources>
