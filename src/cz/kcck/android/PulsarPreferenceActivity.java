@@ -7,86 +7,87 @@ import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceFragment;
 import android.widget.Toast;
 
+/**
+ * This activity displays preferences that user can configure i.e. ambulance phone number, pulse frequency and max counter limit.
+ */
 public class PulsarPreferenceActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
-		 // Display the fragment as the main content.
-        getFragmentManager().beginTransaction()
-                .replace(android.R.id.content, new PrefsFragment())
-                .commit();
+
+		// Display the fragment as the main content.
+		getFragmentManager().beginTransaction()
+				.replace(android.R.id.content, new PrefsFragment()).commit();
 	}
-	
-	
+
 	public static class PrefsFragment extends PreferenceFragment {
-        @Override
-        public void onCreate(Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-            
-    		addPreferencesFromResource(R.xml.preferences);
-    		setValidationToPreference("editText_pulseFrequency"); 
-    		setValidationToPreference("editText_pulseCounterMax");
+		@Override
+		public void onCreate(Bundle savedInstanceState) {
+			super.onCreate(savedInstanceState);
 
-        }
-        
-        private void setValidationToPreference(String preferenceName) {
-    		findPreference(preferenceName).setOnPreferenceChangeListener(
-    				new OnPreferenceChangeListener() {
+			addPreferencesFromResource(R.xml.preferences);
+			setValidationToPreference("editText_pulseFrequency");
+			setValidationToPreference("editText_pulseCounterMax");
 
-    					@Override
-    					public boolean onPreferenceChange(Preference pref,
-    							Object newValue) {
-    						return checkNotEmpty(pref, (String) newValue);
-    					}
-    				});
-    	}
+		}
 
-    	private boolean checkNotEmpty(Preference pref, String value) {
+		private void setValidationToPreference(String preferenceName) {
+			findPreference(preferenceName).setOnPreferenceChangeListener(
+					new OnPreferenceChangeListener() {
 
-    		if (value == null || value.equals("")) {
-    			Toast.makeText(this.getActivity(),
-    					"Preference " + pref.getTitle() + " cannot be empty.",
-    					Toast.LENGTH_SHORT).show();
-    			return false;
-    		}
-    		
-    		if (Integer.parseInt(value)<=0) {
-    			Toast.makeText(this.getActivity(),
-    					"Preference " + pref.getTitle() + " cannot be less than or equal to zero.",
-    					Toast.LENGTH_SHORT).show();
-    			return false;
-    		}
-    				
-    		if(pref.getKey().equalsIgnoreCase("editText_pulseFrequency"))
-    		{
-    			if(!checkMax(value,300))
-    			{
-    				Toast.makeText(this.getActivity(),
-    						"Preference " + pref.getTitle() + " cannot be greater than 300.",
-    						Toast.LENGTH_SHORT).show();
-    				return false;
-    			}
-    		}
-    		if(pref.getKey().equalsIgnoreCase("editText_pulseCounterMax"))
-    		{
-    			if(!checkMax(value,1000))
-    			{
-    				Toast.makeText(this.getActivity(),
-    						"Preference " + pref.getTitle() + " cannot be greater than 1000.",
-    						Toast.LENGTH_SHORT).show();
-    				return false;
-    			}		
-    		}
-    		return true;
-    	}
+						@Override
+						public boolean onPreferenceChange(Preference pref,
+								Object newValue) {
+							return checkNotEmpty(pref, (String) newValue);
+						}
+					});
+		}
 
-    	private boolean checkMax(String value, int max) {
-    		return Integer.parseInt(value)<=max;		
-    	}
+		private boolean checkNotEmpty(Preference pref, String value) {
 
-    }
+			if (value == null || value.equals("")) {
+				Toast.makeText(this.getActivity(),
+						"Preference " + pref.getTitle() + " cannot be empty.",
+						Toast.LENGTH_SHORT).show();
+				return false;
+			}
 
-	
+			if (Integer.parseInt(value) <= 0) {
+				Toast.makeText(
+						this.getActivity(),
+						"Preference " + pref.getTitle()
+								+ " cannot be less than or equal to zero.",
+						Toast.LENGTH_SHORT).show();
+				return false;
+			}
+
+			if (pref.getKey().equalsIgnoreCase("editText_pulseFrequency")) {
+				if (!checkMax(value, 300)) {
+					Toast.makeText(
+							this.getActivity(),
+							"Preference " + pref.getTitle()
+									+ " cannot be greater than 300.",
+							Toast.LENGTH_SHORT).show();
+					return false;
+				}
+			}
+			if (pref.getKey().equalsIgnoreCase("editText_pulseCounterMax")) {
+				if (!checkMax(value, 1000)) {
+					Toast.makeText(
+							this.getActivity(),
+							"Preference " + pref.getTitle()
+									+ " cannot be greater than 1000.",
+							Toast.LENGTH_SHORT).show();
+					return false;
+				}
+			}
+			return true;
+		}
+
+		private boolean checkMax(String value, int max) {
+			return Integer.parseInt(value) <= max;
+		}
+
+	}
 
 }
