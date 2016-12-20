@@ -97,14 +97,11 @@ public class PulsarActivity extends AppCompatActivity {
 		}
 
 		private void doTimer(long millis) {
-			int seconds = (int) (millis / 1000);
-			int minutes = seconds / 60;
-			seconds = seconds % 60;
-			if (seconds < 10) {
-				textViewTime.setText("" + minutes + ":0" + seconds);
-			} else {
-				textViewTime.setText("" + minutes + ":" + seconds);
-			}
+			long second = (millis / 1000) % 60;
+			long minute = (millis / (1000 * 60)) % 60;
+			
+			textViewTime.setText(String.format("%02d:%02d", minute, second));
+			
 		}
 
 	};
