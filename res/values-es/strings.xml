@@ -9,7 +9,7 @@
     <string name="ambulancePhoneNumber">Número de teléfono de emergencia local que se activa cuando se presiona el botón de llamada de Pulsar CPR o respiración cardiopulmonar (911,112, 155, ...)</string>
     <string name="callAmbulanceQuestion">¿Llamar ambulancia?</string>
     <string name="callAmbulanceYes">Sí, ¡llamar!</string>
-    <string name="callAmbulanceFailed">Llamada al %1$d no ha sido posible</string>
+    <string name="callAmbulanceFailed">Llamada al %1$s no ha sido posible</string>
 	<string name="cancel">Cancelar</string>
 	<string name="licenseTermsAndConditions">Términos y Condiciones</string>
 	<string name="licenseAgree">Seguir</string>

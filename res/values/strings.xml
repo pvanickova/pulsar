@@ -10,7 +10,7 @@
     <string name="ambulancePhoneNumber">Local emergency phone number used when the Pulsar CPR call button is pressed (911,112, 155, ...)</string>
     <string name="callAmbulanceQuestion">Call an ambulance?</string>
     <string name="callAmbulanceYes">Yes, call!</string>
-    <string name="callAmbulanceFailed">Call to %1$d failed</string>
+    <string name="callAmbulanceFailed">Call to %1$s failed</string>
     <string name="cancel">Cancel</string>
     <string name="licenseTermsAndConditions">Terms and conditions</string>
     <string name="licenseAgree">Agree</string>
@@ -35,5 +35,6 @@
   8. Setting \"Rescue breath frequency\" determines the maximum value of the \"Heart counter\".\n\n
   9. Setting \"Ambulance phone number\" determines the default emergency number that is used when you use the \"Call ambulance button.\"
     </string>
+    <string name="failure_permission">Permission to make calls denied. </string>
 
 </resources>

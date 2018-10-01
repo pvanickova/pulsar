@@ -9,7 +9,7 @@
     <string name="ambulancePhoneNumber">Telefonní číslo pro přivolání záchranné služby, které se použije při stlační tlačítka hovoru v aplikaci Pulsar CPR (např. 112, 155, 911 ...)</string>
     <string name="callAmbulanceQuestion">Přivolat záchrannou službu?</string>
     <string name="callAmbulanceYes">Ano, zavolat!</string>	
-    <string name="callAmbulanceFailed">"Telefonní hovor na %1$d selhal."</string>
+    <string name="callAmbulanceFailed">"Telefonní hovor na %1$s selhal."</string>
 	<string name="cancel">Zrušit</string>
 	<string name="licenseTermsAndConditions">Všeobecné smluvní podmínky</string>
 	<string name="licenseAgree">Souhlasím</string>

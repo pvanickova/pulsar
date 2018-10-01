@@ -9,7 +9,7 @@
     <string name="ambulancePhoneNumber">Número de telefone local da emergência, usado quando o botão de chamada Pulsar RCP é pressionado (911,112, 155, ...)</string>
     <string name="callAmbulanceQuestion">Chamar uma ambulância?</string>
     <string name="callAmbulanceYes">Sim, chamar!</string>
-    <string name="callAmbulanceFailed">Chamada para %1$d falhou</string>
+    <string name="callAmbulanceFailed">Chamada para %1$s falhou</string>
 	<string name="cancel">Cancelar</string>
 	<string name="licenseTermsAndConditions">Termos e Condições</string>
 	<string name="licenseAgree">Concordo</string>

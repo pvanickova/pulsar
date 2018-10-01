@@ -9,7 +9,7 @@
     <string name="ambulancePhoneNumber">Lokale Notfallrufnummer, wenn "Notruf" gedrückt wird: (911,112, 155, ...)</string>
     <string name="callAmbulanceQuestion">Einen Krankenwagen rufen?</string>
     <string name="callAmbulanceYes">Ja, anrufen!</string>
-    <string name="callAmbulanceFailed">Anrufen von %1$d gescheitert</string>
+    <string name="callAmbulanceFailed">Anrufen von %1$s gescheitert</string>
 	<string name="cancel">Abbrechen</string>
 	<string name="licenseTermsAndConditions">Allgemeine Geschäftsbedingungen</string>
 	<string name="licenseAgree">Zustimmen</string>

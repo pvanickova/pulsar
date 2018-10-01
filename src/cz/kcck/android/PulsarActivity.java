@@ -5,12 +5,14 @@ import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import android.Manifest;
 import android.app.AlertDialog;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.media.AudioManager;
 import android.media.SoundPool;
@@ -19,6 +21,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.SystemClock;
 import android.preference.PreferenceManager;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.InputType;
 import android.util.Log;
@@ -40,35 +43,42 @@ import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 
+import static java.lang.Math.round;
+
 /*
  * The main activity for pulsar cpr.
  */
 public class PulsarActivity extends AppCompatActivity {
 	private static final String LOG_TAG = "PulsarActivity";
-	
-	private short pulseCount = 0;
+    private static final int MY_PERMISSIONS_REQUEST_CALL_PHONE = 1;
+
+	private short pulseCount = 1;
 	private short maxPulseCount = 30;
+	private long pulseSinceStart = 0;
 	private short pulseFrequency = 100;
 	private String ambulancePhoneNumber = "112";
 	private boolean licenseAccepted = false;
 	private long startTime;
-	
+
 	private SoundPool soundPool;
 	private int soundID;
 	boolean soundLoaded = false;
 	boolean paused = true;
-	
+
 	private Resources res;
 	private TextView textViewTime = null;
 	private TextView textViewTimeStart = null;
-	
-	private Handler pulseHandler = new Handler();		
+
+	private Handler pulseHandler = new Handler();
 	private Runnable updatePulseTask = new Runnable() {
 		public void run() {
 			long millisSinceStart = (SystemClock.elapsedRealtime() - startTime);
 			long cycleLength = (60 * 1000 / pulseFrequency);
-			long drift = millisSinceStart % cycleLength;
-			// Log.d(LOG_TAG,"millis " + millisSinceStart + " drift: "+drift);
+			long drift = millisSinceStart - pulseSinceStart*cycleLength;//(millisSinceStart % (maxPulseCount * cycleLength)) - (pulseCount-1)*cycleLength;
+//			if(pulseCount == 1 && drift > cycleLength){
+//				drift = drift - maxPulseCount * cycleLength;
+//			}
+			Log.v(LOG_TAG, "millis " + millisSinceStart + " drift: " + drift + " millis after mod "+(millisSinceStart % (maxPulseCount * cycleLength)) + " pulse count "+pulseCount);
 			pulseHandler.postDelayed(updatePulseTask, cycleLength - drift);
 			doPulse();
 		}
@@ -77,17 +87,19 @@ public class PulsarActivity extends AppCompatActivity {
 			if (!licenseAccepted)
 				return;
 			playSound();
-			pulseCount++;
-			if (pulseCount > maxPulseCount) {
-				pulseCount = 1;
-			}
+
+			Log.v(LOG_TAG, "pulse count " + pulseCount);
 			((TextView) findViewById(R.id.textViewCounter)).setText(""
 					+ pulseCount);
 			findViewById(R.id.imageViewPulse).startAnimation(pulseAnimation);
-
+			pulseCount++;
+            pulseSinceStart++;
+			if (pulseCount > maxPulseCount) {
+				pulseCount = 1;
+			}
 		}
 	};
-	
+
 	private Handler timeHandler = new Handler();
 	private Runnable updateTimerTask = new Runnable() {
 		public void run() {
@@ -99,13 +111,13 @@ public class PulsarActivity extends AppCompatActivity {
 		private void doTimer(long millis) {
 			long second = (millis / 1000) % 60;
 			long minute = (millis / (1000 * 60)) % 60;
-			
+
 			textViewTime.setText(String.format("%02d:%02d", minute, second));
-			
+
 		}
 
 	};
-	
+
 	private Animation pulseAnimation;
 
 	public static GoogleAnalytics analytics;
@@ -115,22 +127,22 @@ public class PulsarActivity extends AppCompatActivity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		startTime = SystemClock.elapsedRealtime();
 		getWindow().addFlags(LayoutParams.FLAG_KEEP_SCREEN_ON);
 		res = getResources();
 		initPreferences();
-		reloadState(savedInstanceState);
+
 		setContentView(R.layout.main);
 		licenseAccepted();
 		initButtons();
 		initPulseAnimation((ImageView) findViewById(R.id.imageViewPulse));
 		initCounters();
+        reloadState(savedInstanceState);
 		initSound();
 		paused = false;
 		initAnalytics();
 	}
 
-	
+
 	@Override
 	public void onDestroy() {
 		super.onDestroy();
@@ -176,29 +188,27 @@ public class PulsarActivity extends AppCompatActivity {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
-		case R.xml.preferences:
-			tracker.send(new HitBuilders.EventBuilder().setCategory("Buttons")
-					.setAction("click").setLabel("Preferences").build());
-			// Launch Preference activity
-			Intent i = new Intent(PulsarActivity.this,
-					PulsarPreferenceActivity.class);
-			startActivity(i);
-			break;
-		case R.id.action_restart:
-			tracker.send(new HitBuilders.EventBuilder().setCategory("Buttons")
-					.setAction("click").setLabel("Restart").build());
+			case R.xml.preferences:
+				tracker.send(new HitBuilders.EventBuilder().setCategory("Buttons")
+						.setAction("click").setLabel("Preferences").build());
+				// Launch Preference activity
+				Intent i = new Intent(PulsarActivity.this,
+						PulsarPreferenceActivity.class);
+				startActivity(i);
+				break;
+			case R.id.action_restart:
+				tracker.send(new HitBuilders.EventBuilder().setCategory("Buttons")
+						.setAction("click").setLabel("Restart").build());
 
-			pulseCount = 0;
-			startTime = SystemClock.elapsedRealtime();
-			initCounters();
-			break;
-		case R.id.action_info:
-			tracker.send(new HitBuilders.EventBuilder().setCategory("Buttons")
-					.setAction("click").setLabel("Info").build());
+				initCounters();
+				break;
+			case R.id.action_info:
+				tracker.send(new HitBuilders.EventBuilder().setCategory("Buttons")
+						.setAction("click").setLabel("Info").build());
 
-			Intent ih = new Intent(PulsarActivity.this, HelpActivity.class);
-			startActivity(ih);
-			break;
+				Intent ih = new Intent(PulsarActivity.this, HelpActivity.class);
+				startActivity(ih);
+				break;
 		}
 		return true;
 	}
@@ -207,7 +217,6 @@ public class PulsarActivity extends AppCompatActivity {
 	protected void onSaveInstanceState(Bundle outState) {
 		super.onSaveInstanceState(outState);
 		outState.putLong("startTime", startTime);
-		outState.putShort("pulseCount", pulseCount);
 	}
 
 	/**
@@ -232,7 +241,7 @@ public class PulsarActivity extends AppCompatActivity {
 					.setPositiveButton(res.getString(R.string.licenseAgree),
 							new DialogInterface.OnClickListener() {
 								public void onClick(DialogInterface dialog,
-										int id) {
+													int id) {
 
 									tracker.send(new HitBuilders.EventBuilder()
 											.setCategory("License")
@@ -247,6 +256,8 @@ public class PulsarActivity extends AppCompatActivity {
 									editor.commit();
 									Intent ih = new Intent(PulsarActivity.this,
 											HelpActivity.class);
+
+                                    initCounters();
 									startActivity(ih);
 
 								}
@@ -254,14 +265,14 @@ public class PulsarActivity extends AppCompatActivity {
 					.setNegativeButton(res.getString(R.string.licenseDisagree),
 							new DialogInterface.OnClickListener() {
 								public void onClick(DialogInterface dialog,
-										int id) {
+													int id) {
 
 									tracker.send(new HitBuilders.EventBuilder()
 											.setCategory("License")
 											.setAction("click")
 											.setLabel("Rejected").build());
 
-									System.exit(0);
+									finishAndRemoveTask();
 								}
 							});
 			AlertDialog alert = builder.create();
@@ -284,19 +295,46 @@ public class PulsarActivity extends AppCompatActivity {
 		});
 	}
 
+    /*
+        Invoked when user responds to the request permission dialog.
+     */
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case MY_PERMISSIONS_REQUEST_CALL_PHONE: {
+                if (permissions[0].equalsIgnoreCase
+                        (Manifest.permission.CALL_PHONE)
+                        && grantResults[0] ==
+                        PackageManager.PERMISSION_GRANTED) {
+                    //continue with the call
+                    callAmbulance();
+
+                } else {
+                    Log.d(LOG_TAG, getString(R.string.failure_permission));
+                    Toast.makeText(this,
+                            getString(R.string.callAmbulanceFailed,
+                                    ambulancePhoneNumber),
+                            Toast.LENGTH_SHORT).show();
+                }
+            }
+        }
+    }
+
 	/**
 	 * Starts the ambulance call.
 	 */
 	private void callAmbulance() {
 
-		final EditText inputAmbulancePhoneNumber = new EditText(this);
+
+        final EditText inputAmbulancePhoneNumber = new EditText(this);
 		inputAmbulancePhoneNumber.setText(ambulancePhoneNumber);
 		inputAmbulancePhoneNumber.setInputType(InputType.TYPE_CLASS_PHONE);
-		
-		AlertDialog alertDialog = new AlertDialog.Builder(this).create(); 
-		alertDialog.setTitle(R.string.callAmbulanceQuestion);	
+
+		AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+		alertDialog.setTitle(R.string.callAmbulanceQuestion);
 		alertDialog.setView(inputAmbulancePhoneNumber);
-		
+
 		alertDialog.setButton(DialogInterface.BUTTON_POSITIVE,
 				res.getString(R.string.callAmbulanceYes),
 				new DialogInterface.OnClickListener() {
@@ -306,17 +344,26 @@ public class PulsarActivity extends AppCompatActivity {
 								.setCategory("Buttons").setAction("click")
 								.setLabel("Ambulance called").build());
 
-						String ambulancePhoneNumber = inputAmbulancePhoneNumber
-								.getText().toString().trim();
 						try {
-							AudioManager audioManager = (AudioManager) PulsarActivity.this
-									.getSystemService(Context.AUDIO_SERVICE);
-							audioManager.setMode(AudioManager.MODE_IN_CALL);
-							audioManager.setSpeakerphoneOn(true);
-							Intent callIntent = new Intent(Intent.ACTION_CALL);
-							callIntent.setData(Uri.parse("tel:"
-									+ ambulancePhoneNumber));
-							startActivity(callIntent);
+                            if (ActivityCompat.checkSelfPermission(PulsarActivity.this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                                Log.d(LOG_TAG, "Call permission not granted yet.");
+                                ActivityCompat.requestPermissions(PulsarActivity.this,
+                                        new String[]{Manifest.permission.CALL_PHONE},
+                                        MY_PERMISSIONS_REQUEST_CALL_PHONE);
+
+                            } else{
+                                String ambulancePhoneNumber = inputAmbulancePhoneNumber
+                                        .getText().toString().trim();
+                                AudioManager audioManager = (AudioManager) PulsarActivity.this
+                                        .getSystemService(Context.AUDIO_SERVICE);
+                                audioManager.setMode(AudioManager.MODE_IN_CALL);
+                                audioManager.setSpeakerphoneOn(true);
+                                Intent callIntent = new Intent(Intent.ACTION_CALL);
+                                callIntent.setData(Uri.parse("tel:"
+                                        + ambulancePhoneNumber));
+                                startActivity(callIntent);
+                            }
+
 						} catch (ActivityNotFoundException e) {
 							Log.e(LOG_TAG, "Call to " + ambulancePhoneNumber
 									+ " failed", e);
@@ -363,6 +410,12 @@ public class PulsarActivity extends AppCompatActivity {
 		ambulancePhoneNumber = sharedPref.getString(
 				"editText_ambulancePhoneNumber", null);
 		licenseAccepted = sharedPref.getBoolean("licenseAccepted", false);
+
+		long millisSinceStart = (SystemClock.elapsedRealtime() - startTime);
+		long cycleLength = (60 * 1000 / pulseFrequency);
+		pulseSinceStart = millisSinceStart / cycleLength;
+
+		pulseCount = (short) (pulseSinceStart % maxPulseCount);
 	}
 
 	/**
@@ -370,6 +423,10 @@ public class PulsarActivity extends AppCompatActivity {
 	 */
 	private void initCounters() {
 		Log.d(LOG_TAG, "init counters");
+
+        startTime = SystemClock.elapsedRealtime();
+        pulseSinceStart = 0;
+        pulseCount = 1;
 
 		timeHandler.removeCallbacks(updateTimerTask);
 		timeHandler.post(updateTimerTask);
@@ -444,7 +501,12 @@ public class PulsarActivity extends AppCompatActivity {
 	private void reloadState(Bundle savedInstanceState) {
 		if (savedInstanceState != null) {
 			startTime = savedInstanceState.getLong("startTime");
-			pulseCount = savedInstanceState.getShort("pulseCount");
+
+            long millisSinceStart = (SystemClock.elapsedRealtime() - startTime);
+            long cycleLength = (60 * 1000 / pulseFrequency);
+            pulseSinceStart = millisSinceStart / cycleLength;
+
+            pulseCount = (short) (pulseSinceStart % maxPulseCount);
 		}
 	}
 
