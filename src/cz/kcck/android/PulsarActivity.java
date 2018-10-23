@@ -56,6 +56,8 @@ public class PulsarActivity extends AppCompatActivity {
 	private short maxPulseCount = 30;
 	private long pulseSinceStart = 0;
 	private short pulseFrequency = 100;
+	private float rescueBreathDuration = 2000f;
+
 	private String ambulancePhoneNumber = "112";
 	private boolean licenseAccepted = false;
 	private long startTime;
@@ -74,10 +76,8 @@ public class PulsarActivity extends AppCompatActivity {
 		public void run() {
 			long millisSinceStart = (SystemClock.elapsedRealtime() - startTime);
 			long cycleLength = (60 * 1000 / pulseFrequency);
-			long drift = millisSinceStart - pulseSinceStart*cycleLength;//(millisSinceStart % (maxPulseCount * cycleLength)) - (pulseCount-1)*cycleLength;
-//			if(pulseCount == 1 && drift > cycleLength){
-//				drift = drift - maxPulseCount * cycleLength;
-//			}
+			long drift = millisSinceStart - pulseSinceStart*cycleLength;
+
 			Log.v(LOG_TAG, "millis " + millisSinceStart + " drift: " + drift + " millis after mod "+(millisSinceStart % (maxPulseCount * cycleLength)) + " pulse count "+pulseCount);
 			pulseHandler.postDelayed(updatePulseTask, cycleLength - drift);
 			doPulse();
@@ -122,6 +122,7 @@ public class PulsarActivity extends AppCompatActivity {
 
 	public static GoogleAnalytics analytics;
 	public static Tracker tracker;
+
 
 	/** Called when the activity is first created. */
 	@Override
@@ -405,6 +406,8 @@ public class PulsarActivity extends AppCompatActivity {
 				.getDefaultSharedPreferences(this);
 		maxPulseCount = Short.parseShort(sharedPref.getString(
 				"editText_pulseCounterMax", null));
+		rescueBreathDuration = 1000*Float.parseFloat(sharedPref.getString(
+				"editText_pauseForRescueBreaths", null));
 		pulseFrequency = Short.parseShort(sharedPref.getString(
 				"editText_pulseFrequency", null));
 		ambulancePhoneNumber = sharedPref.getString(
@@ -503,7 +506,7 @@ public class PulsarActivity extends AppCompatActivity {
 			startTime = savedInstanceState.getLong("startTime");
 
             long millisSinceStart = (SystemClock.elapsedRealtime() - startTime);
-            long cycleLength = (60 * 1000 / pulseFrequency);
+            long cycleLength = (60 * 1000 / pulseFrequency) ;
             pulseSinceStart = millisSinceStart / cycleLength;
 
             pulseCount = (short) (pulseSinceStart % maxPulseCount);

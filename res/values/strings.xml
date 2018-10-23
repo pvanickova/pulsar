@@ -5,6 +5,8 @@
     <string name="pulseFrequencyTitle">Chest compressions per minute</string>
     <string name="pulseCounterMax">Number of chest compressions between rescue breaths</string>
     <string name="pulseCounterMaxTitle">Rescue breaths frequency</string>
+    <string name="pauseForRescueBreaths">Duration of the pause for rescue breaths in seconds</string>
+    <string name="pauseForRescueBreathsTitle">Rescue breaths duration</string>
     <string name="preferences">Preferences</string>
     <string name="ambulancePhoneNumberTitle">Ambulance phone number</string>
     <string name="ambulancePhoneNumber">Local emergency phone number used when the Pulsar CPR call button is pressed (911,112, 155, ...)</string>

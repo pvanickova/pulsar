@@ -18,6 +18,14 @@
         android:title="@string/pulseCounterMaxTitle" />
 
     <EditTextPreference
+        android:defaultValue="2"
+        android:dialogTitle="@string/pauseForRescueBreathsTitle"
+        android:inputType="number"
+        android:key="editText_pauseForRescueBreaths"
+        android:summary="@string/pauseForRescueBreaths"
+        android:title="@string/pauseForRescueBreathsTitle" />
+
+    <EditTextPreference
         android:defaultValue="112"
         android:inputType="phone"
         android:dialogTitle="@string/ambulancePhoneNumberTitle"

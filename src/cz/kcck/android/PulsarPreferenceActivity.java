@@ -28,6 +28,7 @@ public class PulsarPreferenceActivity extends Activity {
 			addPreferencesFromResource(R.xml.preferences);
 			setValidationToPreference("editText_pulseFrequency");
 			setValidationToPreference("editText_pulseCounterMax");
+			setValidationToPreference("editText_pauseForRescueBreaths");
 
 		}
 
@@ -38,20 +39,53 @@ public class PulsarPreferenceActivity extends Activity {
 						@Override
 						public boolean onPreferenceChange(Preference pref,
 								Object newValue) {
-							return checkNotEmpty(pref, (String) newValue);
+							return checkPreferences(pref, (String) newValue);
 						}
 					});
 		}
 
-		private boolean checkNotEmpty(Preference pref, String value) {
+		private boolean checkPreferences(Preference pref, String value) {
 
+			if (checkEmpty(pref, value)) return false;
+
+			if (pref.getKey().equalsIgnoreCase("editText_pulseFrequency")) {
+				if (!checkPositiveOrZeroInteger(pref, value)) return false;
+				if (!checkMaxInteger(pref, value,300)) return false;
+			}
+			if (pref.getKey().equalsIgnoreCase("editText_pulseCounterMax")) {
+				if (!checkPositiveOrZeroInteger(pref, value)) return false;
+				if (!checkMaxInteger(pref, value,1000)) return false;
+			}
+			if (pref.getKey().equalsIgnoreCase("editText_pauseForRescueBreaths")) {
+				if (!checkPositiveOrZeroFloat(pref, value)) return false;
+				if (!checkMaxFloat(pref, value,60)) return false;
+			}
+			return true;
+		}
+
+		private boolean checkEmpty(Preference pref, String value) {
 			if (value == null || value.equals("")) {
 				Toast.makeText(this.getActivity(),
 						"Preference " + pref.getTitle() + " cannot be empty.",
 						Toast.LENGTH_SHORT).show();
+				return true;
+			}
+			return false;
+		}
+
+		private boolean checkPositiveOrZeroFloat(Preference pref, String value) {
+			if (Float.parseFloat(value) <= 0) {
+				Toast.makeText(
+						this.getActivity(),
+						"Preference " + pref.getTitle()
+								+ " cannot be less than or equal to zero.",
+						Toast.LENGTH_SHORT).show();
 				return false;
 			}
+			return true;
+		}
 
+		private boolean checkPositiveOrZeroInteger(Preference pref, String value) {
 			if (Integer.parseInt(value) <= 0) {
 				Toast.makeText(
 						this.getActivity(),
@@ -60,32 +94,33 @@ public class PulsarPreferenceActivity extends Activity {
 						Toast.LENGTH_SHORT).show();
 				return false;
 			}
+			return true;
+		}
 
-			if (pref.getKey().equalsIgnoreCase("editText_pulseFrequency")) {
-				if (!checkMax(value, 300)) {
-					Toast.makeText(
-							this.getActivity(),
-							"Preference " + pref.getTitle()
-									+ " cannot be greater than 300.",
-							Toast.LENGTH_SHORT).show();
-					return false;
-				}
-			}
-			if (pref.getKey().equalsIgnoreCase("editText_pulseCounterMax")) {
-				if (!checkMax(value, 1000)) {
-					Toast.makeText(
-							this.getActivity(),
-							"Preference " + pref.getTitle()
-									+ " cannot be greater than 1000.",
-							Toast.LENGTH_SHORT).show();
-					return false;
-				}
+		private boolean checkMaxInteger(Preference pref, String value, int max) {
+
+			if ( Integer.parseInt(value) > max) {
+				Toast.makeText(
+						this.getActivity(),
+						"Preference " + pref.getTitle()
+								+ " cannot be greater than "+value+".",
+						Toast.LENGTH_SHORT).show();
+				return false;
 			}
 			return true;
 		}
 
-		private boolean checkMax(String value, int max) {
-			return Integer.parseInt(value) <= max;
+		private boolean checkMaxFloat(Preference pref, String value, float max) {
+
+			if ( Float.parseFloat(value) > max) {
+				Toast.makeText(
+						this.getActivity(),
+						"Preference " + pref.getTitle()
+								+ " cannot be greater than "+value+".",
+						Toast.LENGTH_SHORT).show();
+				return false;
+			}
+			return true;
 		}
 
 	}
