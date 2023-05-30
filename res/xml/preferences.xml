@@ -10,25 +10,23 @@
         android:title="@string/pulseFrequencyTitle" />
 
     <EditTextPreference
-        android:defaultValue="30"
-        android:dialogTitle="@string/pulseCounterMaxTitle"
-        android:inputType="number"
-        android:key="editText_pulseCounterMax"
-        android:summary="@string/pulseCounterMax"
-        android:title="@string/pulseCounterMaxTitle" />
-
-    <EditTextPreference
         android:defaultValue="2"
-        android:dialogTitle="@string/pauseForRescueBreathsTitle"
+        android:dialogTitle="@string/pauseForRescueBreaths"
         android:inputType="number"
         android:key="editText_pauseForRescueBreaths"
-        android:summary="@string/pauseForRescueBreaths"
-        android:title="@string/pauseForRescueBreathsTitle" />
+        android:title="@string/pauseForRescueBreaths" />
+
+    <EditTextPreference
+        android:defaultValue="30"
+        android:dialogTitle="@string/rescueBreathsFrequencyTitle"
+        android:inputType="number"
+        android:key="editText_pulseCounterMax"
+        android:title="@string/rescueBreathsFrequencyTitle" />
 
     <EditTextPreference
         android:defaultValue="112"
-        android:inputType="phone"
         android:dialogTitle="@string/ambulancePhoneNumberTitle"
+        android:inputType="phone"
         android:key="editText_ambulancePhoneNumber"
         android:summary="@string/ambulancePhoneNumber"
         android:title="@string/ambulancePhoneNumberTitle" />

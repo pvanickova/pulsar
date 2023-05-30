@@ -39,9 +39,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.analytics.GoogleAnalytics;
-import com.google.android.gms.analytics.HitBuilders;
-import com.google.android.gms.analytics.Tracker;
+
+import com.google.firebase.analytics.FirebaseAnalytics;
 
 import static java.lang.Math.round;
 
@@ -55,6 +54,7 @@ public class PulsarActivity extends AppCompatActivity {
 	private short pulseCount = 1;
 	private short maxPulseCount = 30;
 	private long pulseSinceStart = 0;
+	private long breathSinceStart = 0;
 	private short pulseFrequency = 100;
 	private float rescueBreathDuration = 2000f;
 
@@ -63,19 +63,21 @@ public class PulsarActivity extends AppCompatActivity {
 	private long startTime;
 
 	private SoundPool soundPool;
-	private int soundID;
+	private int soundIDBeep;
+	private int soundIDBreathe;
 	boolean soundLoaded = false;
 	boolean paused = true;
 
 	private Resources res;
 	private TextView textViewTime = null;
 	private TextView textViewTimeStart = null;
+	private TextView textViewCounter = null;
 
 	private Handler pulseHandler = new Handler();
 	private Runnable updatePulseTask = new Runnable() {
 		public void run() {
 			long millisSinceStart = (SystemClock.elapsedRealtime() - startTime);
-			long cycleLength = (60 * 1000 / pulseFrequency);
+			long cycleLength = (60 * 1000 / pulseFrequency) ;
 			long drift = millisSinceStart - pulseSinceStart*cycleLength;
 
 			Log.v(LOG_TAG, "millis " + millisSinceStart + " drift: " + drift + " millis after mod "+(millisSinceStart % (maxPulseCount * cycleLength)) + " pulse count "+pulseCount);
@@ -86,17 +88,44 @@ public class PulsarActivity extends AppCompatActivity {
 		private void doPulse() {
 			if (!licenseAccepted)
 				return;
-			playSound();
+			//((ImageView) findViewById(R.id.imageViewPulse)).setImageResource(R.drawable.pulse);
+			playSound(soundIDBeep);
 
 			Log.v(LOG_TAG, "pulse count " + pulseCount);
-			((TextView) findViewById(R.id.textViewCounter)).setText(""
+			//if()
+			//((TextView) findViewById(R.id.textViewCounter)).setVisibility(View.INVISIBLE);
+			textViewCounter.setText(""
 					+ pulseCount);
 			findViewById(R.id.imageViewPulse).startAnimation(pulseAnimation);
 			pulseCount++;
             pulseSinceStart++;
 			if (pulseCount > maxPulseCount) {
-				pulseCount = 1;
+				breathSinceStart++;
+				pulseHandler.removeCallbacks(updatePulseTask);
+
+				Handler handler = new Handler();
+				handler.postDelayed(new Runnable() {
+					@Override
+					public void run() {
+						textViewCounter.setText("");
+						((ImageView)findViewById(R.id.imageViewPulse)).setImageResource(R.drawable.breathe);
+						findViewById(R.id.imageViewPulse).startAnimation(pulseAnimation);
+						playSound(soundIDBreathe);
+						findViewById(R.id.imageViewPulse).startAnimation(pulseAnimation);
+						playSound(soundIDBreathe);
+
+						pulseCount = 1;
+						pulseHandler.post(updatePulseTask);
+					}
+				}, 2000);
+
+
+
+
+
+
 			}
+
 		}
 	};
 
@@ -120,8 +149,7 @@ public class PulsarActivity extends AppCompatActivity {
 
 	private Animation pulseAnimation;
 
-	public static GoogleAnalytics analytics;
-	public static Tracker tracker;
+	private FirebaseAnalytics analytics;
 
 
 	/** Called when the activity is first created. */
@@ -188,24 +216,23 @@ public class PulsarActivity extends AppCompatActivity {
 	 * */
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
+		Bundle bundle = new Bundle();
 		switch (item.getItemId()) {
 			case R.xml.preferences:
-				tracker.send(new HitBuilders.EventBuilder().setCategory("Buttons")
-						.setAction("click").setLabel("Preferences").build());
 				// Launch Preference activity
 				Intent i = new Intent(PulsarActivity.this,
 						PulsarPreferenceActivity.class);
 				startActivity(i);
 				break;
 			case R.id.action_restart:
-				tracker.send(new HitBuilders.EventBuilder().setCategory("Buttons")
-						.setAction("click").setLabel("Restart").build());
+				bundle.putString(FirebaseAnalytics.Param.VALUE, "Restart");
+				analytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
 
 				initCounters();
 				break;
 			case R.id.action_info:
-				tracker.send(new HitBuilders.EventBuilder().setCategory("Buttons")
-						.setAction("click").setLabel("Info").build());
+				bundle.putString(FirebaseAnalytics.Param.VALUE, "Info");
+				analytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
 
 				Intent ih = new Intent(PulsarActivity.this, HelpActivity.class);
 				startActivity(ih);
@@ -243,11 +270,10 @@ public class PulsarActivity extends AppCompatActivity {
 							new DialogInterface.OnClickListener() {
 								public void onClick(DialogInterface dialog,
 													int id) {
-
-									tracker.send(new HitBuilders.EventBuilder()
-											.setCategory("License")
-											.setAction("click")
-											.setLabel("Approved").build());
+									Bundle bundle = new Bundle();
+									bundle.putString(FirebaseAnalytics.Param.ITEM_CATEGORY, "License");
+									bundle.putString(FirebaseAnalytics.Param.ITEM_ID, "Approved");
+									analytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
 
 									SharedPreferences sharedPref = PreferenceManager
 											.getDefaultSharedPreferences(PulsarActivity.this);
@@ -268,10 +294,10 @@ public class PulsarActivity extends AppCompatActivity {
 								public void onClick(DialogInterface dialog,
 													int id) {
 
-									tracker.send(new HitBuilders.EventBuilder()
-											.setCategory("License")
-											.setAction("click")
-											.setLabel("Rejected").build());
+									Bundle bundle = new Bundle();
+									bundle.putString(FirebaseAnalytics.Param.ITEM_CATEGORY, "License");
+									bundle.putString(FirebaseAnalytics.Param.ITEM_ID, "Rejected");
+									analytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
 
 									finishAndRemoveTask();
 								}
@@ -341,9 +367,9 @@ public class PulsarActivity extends AppCompatActivity {
 				new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int which) {
 
-						tracker.send(new HitBuilders.EventBuilder()
-								.setCategory("Buttons").setAction("click")
-								.setLabel("Ambulance called").build());
+						Bundle bundle = new Bundle();
+						bundle.putString(FirebaseAnalytics.Param.VALUE, "Ambulance called");
+						analytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
 
 						try {
                             if (ActivityCompat.checkSelfPermission(PulsarActivity.this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
@@ -382,9 +408,9 @@ public class PulsarActivity extends AppCompatActivity {
 				new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int which) {
 
-						tracker.send(new HitBuilders.EventBuilder()
-								.setCategory("Buttons").setAction("click")
-								.setLabel("Ambulance call cancelled").build());
+						Bundle bundle = new Bundle();
+						bundle.putString(FirebaseAnalytics.Param.VALUE, "Ambulance call cancelled");
+						analytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
 
 						dialog.cancel();
 					}
@@ -394,7 +420,7 @@ public class PulsarActivity extends AppCompatActivity {
 	}
 	
 	private void initPreferences() {
-		PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
+		PreferenceManager.setDefaultValues(this, R.xml.preferences, true);
 		reloadPreferences();
 	}
 
@@ -404,10 +430,13 @@ public class PulsarActivity extends AppCompatActivity {
 	private void reloadPreferences() {
 		SharedPreferences sharedPref = PreferenceManager
 				.getDefaultSharedPreferences(this);
+
+//		short pulseMode = Short.parseShort(sharedPref.getString(
+//		"list_rescueBreathsFrequency", null));
 		maxPulseCount = Short.parseShort(sharedPref.getString(
 				"editText_pulseCounterMax", null));
-		rescueBreathDuration = 1000*Float.parseFloat(sharedPref.getString(
-				"editText_pauseForRescueBreaths", null));
+		rescueBreathDuration = 2000; //1000*Float.parseFloat(sharedPref.getString(
+//				"editText_pauseForRescueBreaths", null));*
 		pulseFrequency = Short.parseShort(sharedPref.getString(
 				"editText_pulseFrequency", null));
 		ambulancePhoneNumber = sharedPref.getString(
@@ -439,6 +468,7 @@ public class PulsarActivity extends AppCompatActivity {
 		
 		textViewTime = (TextView) findViewById(R.id.textViewTime);
 		textViewTimeStart = (TextView) findViewById(R.id.textViewTimeStart);
+		textViewCounter = ((TextView) findViewById(R.id.textViewCounter));
 
 		Date startDate = new Date(System.currentTimeMillis()
 				- SystemClock.elapsedRealtime() + startTime);
@@ -446,12 +476,12 @@ public class PulsarActivity extends AppCompatActivity {
 		textViewTimeStart.setText("" + format.format(startDate));
 	}
 
-	private void initPulseAnimation(ImageView myImageView) {
+	private void initPulseAnimation(ImageView imageViewPulse) {
 		pulseAnimation = AnimationUtils.loadAnimation(this, R.anim.fadein);
 		AnimationListener animationListener = new AnimationListener() {
 
 			public void onAnimationStart(Animation animation) {
-				findViewById(R.id.imageViewPulse).setVisibility(View.VISIBLE);
+				imageViewPulse.setVisibility(View.VISIBLE);
 			}
 
 			public void onAnimationRepeat(Animation animation) {
@@ -460,7 +490,7 @@ public class PulsarActivity extends AppCompatActivity {
 
 			// at the end of the animation, start new activity
 			public void onAnimationEnd(Animation animation) {
-				findViewById(R.id.imageViewPulse).setVisibility(View.INVISIBLE);
+				imageViewPulse.setVisibility(View.INVISIBLE);
 			}
 		};
 		pulseAnimation.setAnimationListener(animationListener);
@@ -478,21 +508,15 @@ public class PulsarActivity extends AppCompatActivity {
 						soundLoaded = true;
 					}
 				});
-		soundID = soundPool.load(this, R.raw.beep, 1);
+		soundIDBeep = soundPool.load(this, R.raw.beep, 1);
+		soundIDBreathe = soundPool.load(this, R.raw.breathe, 1);
 	}
 	
 	/**
 	 * Initializes google analytics communication.
 	 */
 	private void initAnalytics() {
-		analytics = GoogleAnalytics.getInstance(this);
-		analytics.setLocalDispatchPeriod(1800);
-
-		tracker = analytics.newTracker("UA-65181986-1"); 
-		tracker.enableExceptionReporting(true);
-		tracker.enableAdvertisingIdCollection(false);
-		tracker.enableAutoActivityTracking(true);
-		tracker.setScreenName("main screen");
+		analytics = FirebaseAnalytics.getInstance(this);
 	}
 
 
@@ -516,7 +540,7 @@ public class PulsarActivity extends AppCompatActivity {
 	/**
 	 * Plays the beep sound when a chest compression should appear.
 	 */
-	private void playSound() {
+	private void playSound(int soundID) {
 		if (paused)
 			return;
 		AudioManager audioManager = (AudioManager) getSystemService(AUDIO_SERVICE);
@@ -527,6 +551,7 @@ public class PulsarActivity extends AppCompatActivity {
 		float volume = actualVolume / maxVolume;
 		// Is the sound loaded already?
 		if (soundLoaded) {
+			Log.v(LOG_TAG, "playing sound "+soundID);
 			soundPool.play(soundID, volume, volume, 1, 0, 1f);
 		}
 	}

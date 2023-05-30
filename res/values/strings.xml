@@ -38,5 +38,6 @@
   9. Setting \"Ambulance phone number\" determines the default emergency number that is used when you use the \"Call ambulance button.\"
     </string>
     <string name="failure_permission">Permission to make calls denied. </string>
+    <string name="rescueBreathsFrequencyTitle">Rescue Breaths</string>
 
 </resources>

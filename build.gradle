@@ -1,0 +1,119 @@
+// This buildscript{} block configures the code driving the build
+buildscript {
+    /**
+     * The nested repositories{} block declares that this build uses the
+     * jcenter repository.
+     */
+    repositories {
+        google()
+        jcenter()
+        maven {
+            url 'https://maven.google.com/'
+            name 'Google'
+        }
+    }
+
+    /**
+     * This block declares a dependency on the 3.1.0 version
+     * of the Gradle plugin for the buildscript.
+     */
+    dependencies {
+        classpath 'com.android.tools.build:gradle:7.4.2'
+        classpath 'com.google.gms:google-services:4.3.15'
+
+    }
+}
+
+/**
+ * This line applies the com.android.application plugin. Note that you should
+ * only apply the com.android.application plugin. Applying the Java plugin as
+ * well will result in a build error.
+ */
+apply plugin: 'com.android.application'
+
+/**
+ * This dependencies block includes any dependencies for the project itself. The
+ * following line includes all the JAR files in the libs directory.
+ */
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    // add the Firebase SDK for Google Analytics
+    implementation 'com.google.firebase:firebase-analytics:15.0.0'
+    // Support Libraries
+    implementation 'com.android.support:appcompat-v7:28.0.0'
+
+}
+
+// Create a variable called keystorePropertiesFile, and initialize it to your
+// keystore.properties file, in the rootProject folder.
+def keystorePropertiesFile = rootProject.file("keystore.properties")
+
+// Initialize a new Properties() object called keystoreProperties.
+def keystoreProperties = new Properties()
+
+// Load your keystore.properties file into the keystoreProperties object.
+keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+
+/**
+ * The android{} block configures all of the parameters for the Android build.
+ * You must provide a value for at least the compilation target.
+ */
+android {
+    signingConfigs {
+        config {
+            keyAlias keystoreProperties['keyAlias']
+            keyPassword keystoreProperties['keyPassword']
+            storeFile file(keystoreProperties['storeFile'])
+            storePassword keystoreProperties['storePassword']
+        }
+    }
+    compileSdkVersion 28
+    /**
+     * This nested sourceSets block points the source code directories to the
+     * existing folders in the project, instead of using the default new
+     * organization.
+     */
+    sourceSets {
+        main {
+            manifest.srcFile 'AndroidManifest.xml'
+            java.srcDirs = ['src']
+            resources.srcDirs = ['src']
+            aidl.srcDirs = ['src']
+            renderscript.srcDirs = ['src']
+            res.srcDirs = ['res']
+            assets.srcDirs = ['assets']
+        }
+
+        // Move the tests to tests/java, tests/res, etc...
+        //instrumentTest.setRoot('tests')
+
+        /**
+         * Move the build types to build-types/<type>
+         * For instance, build-types/debug/java, build-types/debug/AndroidManifest.xml, ...
+         * This moves them out of them default location under src/<type>/... which would
+         * conflict with src/ being used by the main source set.
+         * Adding new build types or product flavors should be accompanied
+         * by a similar customization.
+         */
+        // debug.setRoot('build-types/debug')
+        //release.setRoot('build-types/release')
+    }
+    buildTypes {
+        release {
+            signingConfig signingConfigs.config
+            debuggable false
+            minifyEnabled true
+        }
+    }
+    defaultConfig {
+        minSdkVersion = 16
+        targetSdkVersion 32
+    }
+}
+repositories {
+    google()
+}
+
+
+
+apply plugin: 'com.google.gms.google-services'

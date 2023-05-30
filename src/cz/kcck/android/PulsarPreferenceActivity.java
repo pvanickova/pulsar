@@ -27,7 +27,6 @@ public class PulsarPreferenceActivity extends Activity {
 
 			addPreferencesFromResource(R.xml.preferences);
 			setValidationToPreference("editText_pulseFrequency");
-			setValidationToPreference("editText_pulseCounterMax");
 			setValidationToPreference("editText_pauseForRescueBreaths");
 
 		}
@@ -51,10 +50,6 @@ public class PulsarPreferenceActivity extends Activity {
 			if (pref.getKey().equalsIgnoreCase("editText_pulseFrequency")) {
 				if (!checkPositiveOrZeroInteger(pref, value)) return false;
 				if (!checkMaxInteger(pref, value,300)) return false;
-			}
-			if (pref.getKey().equalsIgnoreCase("editText_pulseCounterMax")) {
-				if (!checkPositiveOrZeroInteger(pref, value)) return false;
-				if (!checkMaxInteger(pref, value,1000)) return false;
 			}
 			if (pref.getKey().equalsIgnoreCase("editText_pauseForRescueBreaths")) {
 				if (!checkPositiveOrZeroFloat(pref, value)) return false;

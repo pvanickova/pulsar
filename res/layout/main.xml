@@ -14,14 +14,13 @@
         android:layout_gravity="center"
         android:layout_weight="0.65" >
 
-        <ImageView
-            android:id="@+id/imageViewPulse"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_centerInParent="true"
-            android:src="@drawable/pulse"
-            android:visibility="invisible"
-             />
+		<ImageView
+			android:id="@+id/imageViewPulse"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:layout_centerInParent="true"
+			android:src="@drawable/pulse"
+			android:visibility="invisible" />
 
         <TextView
             android:id="@+id/textViewCounter"
